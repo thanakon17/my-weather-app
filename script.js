@@ -64,18 +64,22 @@ function displayWeather(data) {
 // อัปเดตพื้นหลังตามสภาพอากาศ
 function updateBackground(temp, iconCode) {
     const hour = new Date().getHours();
-    const isNight = iconCode.includes('n');
+    const isNight = iconCode.includes('n') || hour >= 18 || hour < 6;
     const body = document.body;
 
-    if (isNight || hour >= 18 || hour <= 6) {
-        body.style.background = 'linear-gradient(#0f2027, #203a43, #2c5364)'; // กลางคืน
+    if (isNight) {
+        body.style.backgroundImage = "url('images/image copy 3.png')";
     } else if (temp > 30) {
-        body.style.background = 'linear-gradient(#ff7300, #fef253)'; // ร้อน
+        body.style.backgroundImage = "url('images/image.png')";
     } else if (temp < 20) {
-        body.style.background = 'linear-gradient(#2b5876, #4e4376)'; // หนาว
+        body.style.backgroundImage = "url('images/image copy 2.png')";
     } else {
-        body.style.background = 'linear-gradient(#56ccf2, #2f80ed)'; // ปกติ
+        body.style.backgroundImage = "url('images/image copy.png')";
     }
+
+    body.style.backgroundSize = "cover";
+    body.style.backgroundRepeat = "no-repeat";
+    body.style.backgroundPosition = "center";
 }
 
 
@@ -114,6 +118,17 @@ function renderWeatherAnimation(weatherMain) {
         cloud.className = 'cloud-shape';
         container.appendChild(cloud);
     }
+    
+    else if (weatherMain === 'Clouds') {
+    const cloud = document.createElement('img');
+    cloud.src = 'images/minecraft_cloud.png';
+    cloud.style.position = 'absolute';
+    cloud.style.top = '50px';
+    cloud.style.left = '100px';
+    cloud.style.width = '150px';
+    container.appendChild(cloud);
+}
+
 }
 
 
